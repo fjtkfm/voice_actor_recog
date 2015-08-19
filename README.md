@@ -13,6 +13,7 @@
 * Scikits Talkbox
 * PyBrain
 * progressbar2
+
 (requirements.txt参照)
 
 ## LICENSE

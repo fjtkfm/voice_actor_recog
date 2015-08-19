@@ -1,0 +1,8 @@
+.idea/
+voice/
+voices/
+doc/
+*.pyc
+*.xml
+*.wav
+*.mp4

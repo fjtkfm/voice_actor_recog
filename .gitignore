@@ -1,10 +1,6 @@
 .idea/
-voice/
-voices/
-doc/
-models/
-row/
-wav/
+doc/*.txt
+voice/*
 *.pyc
 *.xml
 *.wav

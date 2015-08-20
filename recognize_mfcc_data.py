@@ -5,7 +5,7 @@ from pybrain.tools.xml import NetworkReader
 
 print 'read dataset'
 
-text_file = open('doc/recog.txt')
+text_file = open('doc/recog-mfcc.txt')
 lines = text_file.read().split('\n')
 text_file.close()
 
@@ -26,8 +26,6 @@ for line in lines:
     label = line[-1]
 
     data_set = UnsupervisedDataSet(13)
-    label_data = np.zeros(19).astype(np.int32)
-    label_data[int(label)] = 1
     data_set.addSample(x)
 
     out = network.activateOnDataset(data_set)

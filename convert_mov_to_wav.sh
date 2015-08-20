@@ -1,6 +1,6 @@
 #!/bin/sh
 
-files=`find row/`
+files=`find mov/`
 
 for file in $files
 do
@@ -11,6 +11,6 @@ do
     
     name=`echo $file_name | cut -d "." -f 1`
 
-    ffmpeg -i row/"$file_name" -map 0:1 wav/"$name".wav
+    ffmpeg -i mov/"$file_name" -map 0:1 wav/"$name".wav
     echo $file_name
 done

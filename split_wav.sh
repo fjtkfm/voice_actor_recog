@@ -1,6 +1,5 @@
 #!/bin/sh
 
-cd ../
 files=`find wav/`
 
 for file in $files; do

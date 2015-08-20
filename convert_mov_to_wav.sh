@@ -1,6 +1,5 @@
 #!/bin/sh
 
-cd ../
 files=`find row/`
 
 for file in $files

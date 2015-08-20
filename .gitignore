@@ -2,6 +2,9 @@
 voice/
 voices/
 doc/
+models/
+row/
+wav/
 *.pyc
 *.xml
 *.wav

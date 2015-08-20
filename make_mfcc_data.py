@@ -5,6 +5,7 @@ import numpy as np
 
 from progressbar import ProgressBar
 import time
+import sys
 
 
 def convert_to_mfcc(voice_path):
@@ -52,3 +53,27 @@ def read_text_file(txt_file_path):
         labels.append(label)
 
     return X, labels
+
+
+def make_mfcc_data_file(input_file_path, output_file_path):
+
+    X, labels = read_text_file(input_file_path)
+
+    data_file = open(output_file_path, 'w')
+
+    for x, label in zip(X, labels):
+        for data in x[0]:
+            data_file.write('%s ' % data)
+
+        data_file.write(label)
+        data_file.write('\n')
+
+    data_file.close()
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print '2 file paths required'
+        sys.exit()
+    make_mfcc_data_file(sys.argv[1], sys.argv[2])
+

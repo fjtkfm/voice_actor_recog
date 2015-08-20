@@ -1,8 +1,9 @@
+import random
+
 from pybrain.datasets import SupervisedDataSet
+import numpy as np
 
 from NN import NN
-import numpy as np
-import random
 
 
 def make_data_set(file_path):
@@ -34,10 +35,10 @@ def make_data_set(file_path):
 
 
 print 'read train dataset'
-train_data_set = make_data_set('doc/train-mfcc.txt')
+train_data_set = make_data_set('doc/train.txt')
 
 print 'read test dataset'
-test_data_set = make_data_set('doc/test-mfcc.txt')
+test_data_set = make_data_set('doc/test.txt')
 
 print 'start train'
 result_txt = open('doc/result.txt', 'w')

@@ -1,4 +1,3 @@
-import sys
 import subprocess
 import time
 
@@ -13,7 +12,7 @@ def cmd(cmd):
     return stdout.rstrip()
 
 
-dirs = cmd("ls " + sys.argv[1])
+dirs = cmd("ls voice2")
 labels = dirs.splitlines()
 
 if 'doc' not in labels:
@@ -27,7 +26,7 @@ for class_no, label in enumerate(labels):
     progress_bar.update(class_no+1)
     time.sleep(0.01)
 
-    work_dir = sys.argv[1] + '/' + label
+    work_dir = 'voice2/' + label
     voice_files = cmd('ls ' + work_dir + '/*.wav')
     voices = voice_files.splitlines()
 

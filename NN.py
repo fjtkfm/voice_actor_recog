@@ -20,7 +20,7 @@ class NN:
             time.sleep(0.01)
             trainer.train()
 
-        return trainer.testOnData(test_data_set)
+        return trainer.testOnData(test_data_set, verbose=True)
 
     def save(self, file_path):
         NetworkWriter.writeToFile(self.network, file_path)

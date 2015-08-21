@@ -13,6 +13,7 @@ def make_data_set(file_path):
 
     random.shuffle(lines)
 
+    max_label = 0
     X, labels = [], []
     for line in lines:
         if not line:
@@ -23,11 +24,15 @@ def make_data_set(file_path):
         for data in datas:
             x.append(float(data))
         X.append(x)
-        labels.append(line[-1])
 
-    data_set = SupervisedDataSet(13, 19)
+        label = int(line[-1])
+        labels.append(label)
+        if max_label < label:
+            max_label = label
+
+    data_set = SupervisedDataSet(13, max_label + 1)
     for data, label in zip(X, labels):
-        label_data = np.zeros(19).astype(np.int32)
+        label_data = np.zeros(max_label + 1).astype(np.int32)
         label_data[int(label)] = 1
         data_set.addSample(data, label_data)
 
@@ -41,14 +46,6 @@ print 'read test dataset'
 test_data_set = make_data_set('doc/test.txt')
 
 print 'start train'
-result_txt = open('doc/result.txt', 'w')
-for n_hidden in range(1, 14):
-    print 'hidden num', n_hidden
-    network = NN(13, n_hidden, 19)
-    aveErr = network.train(train_data_set, test_data_set)
-    result = 'n_hidden: %d, average error: %f' % (n_hidden, aveErr)
-
-    print result
-    result_txt.write(result + '\n')
-    network.save('models/NN%d.xml' % n_hidden)
-result_txt.close()
+network = NN(13, 10, train_data_set.outdim)
+network.train(train_data_set, test_data_set)
+network.save('models/NN.xml')

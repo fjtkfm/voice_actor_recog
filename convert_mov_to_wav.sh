@@ -1,6 +1,14 @@
 #!/bin/sh
 
-files=`find mov/`
+if [ $# -ne 2 ]; then
+    echo "Enter 2 params: input_path, output_path"
+    exit 1
+fi
+
+from=$1
+to=$2
+
+files=`find "$from"/`
 
 for file in $files
 do
@@ -11,6 +19,6 @@ do
     
     name=`echo $file_name | cut -d "." -f 1`
 
-    ffmpeg -i mov/"$file_name" -map 0:1 wav/"$name".wav
+    ffmpeg -i "$from"/"$file_name" -map 0:1 "$to"/"$name".wav
     echo $file_name
 done

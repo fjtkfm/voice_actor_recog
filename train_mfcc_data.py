@@ -48,4 +48,4 @@ test_data_set = make_data_set('doc/test.txt')
 print 'start train'
 network = NN(13, 10, train_data_set.outdim)
 network.train(train_data_set, test_data_set)
-network.save('models/NN.xml')
+network.save('NN.xml')

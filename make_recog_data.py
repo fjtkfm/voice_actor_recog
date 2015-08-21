@@ -32,8 +32,10 @@ for class_no, label in enumerate(labels):
 
     for index, voice in enumerate(voices):
         ceps = make_mfcc_data.convert_to_mfcc(voice)
+        if ceps is None:
+            continue
 
-        for data in ceps:
+        for data in ceps[0]:
             recog.write('%s ' % data)
         recog.write('\n')
 

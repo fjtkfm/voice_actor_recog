@@ -38,14 +38,16 @@ for class_no, label in enumerate(labels):
     length = len(voices)
     for voice in voices:
         ceps = make_mfcc_data.convert_to_mfcc(voice)
+        if ceps is None:
+            continue
 
         if count - start_count < length * 0.75:
-            for data in ceps:
+            for data in ceps[0]:
                 train.write('%s ' % data)
             train.write('%s' % class_no)
             train.write('\n')
         else:
-            for data in ceps:
+            for data in ceps[0]:
                 test.write('%s ' % data)
             test.write('%s' % class_no)
             test.write('\n')

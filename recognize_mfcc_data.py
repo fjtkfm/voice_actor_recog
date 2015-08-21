@@ -16,6 +16,7 @@ text_file.close()
 network = NetworkReader.readFrom('NN.xml')
 
 for line in lines:
+
     if not line:
         continue
     line = line.split(' ')

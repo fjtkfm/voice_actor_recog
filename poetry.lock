@@ -1,0 +1,82 @@
+[[package]]
+name = "numpy"
+version = "1.23.1"
+description = "NumPy is the fundamental package for array computing with Python."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
+name = "progressbar2"
+version = "4.0.0"
+description = "A Python Progressbar library to provide visual (yet text based) progress to long running operations."
+category = "main"
+optional = false
+python-versions = ">=3.7.0"
+
+[package.dependencies]
+python-utils = ">=3.0.0"
+
+[package.extras]
+tests = ["sphinx (>=1.8.5)", "freezegun (>=0.3.11)", "pytest-mypy", "pytest-cov (>=2.6.1)", "pytest (>=4.6.9)", "flake8 (>=3.7.7)"]
+docs = ["sphinx (>=1.8.5)"]
+
+[[package]]
+name = "python-utils"
+version = "3.3.3"
+description = "Python Utils is a module with some convenient utilities not included with the standard Python install"
+category = "main"
+optional = false
+python-versions = ">3.6.0"
+
+[package.extras]
+tests = ["loguru", "types-setuptools", "sphinx", "pytest-asyncio", "pytest-mypy", "pytest-cov", "pytest", "flake8"]
+loguru = ["loguru"]
+docs = ["python-utils", "sphinx", "mock"]
+
+[[package]]
+name = "scipy"
+version = "1.9.0"
+description = "SciPy: Scientific Library for Python"
+category = "main"
+optional = false
+python-versions = ">=3.8,<3.12"
+
+[package.dependencies]
+numpy = ">=1.18.5,<1.25.0"
+
+[[package]]
+name = "sox"
+version = "1.4.1"
+description = "Python wrapper around SoX."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+numpy = ">=1.9.0"
+
+[package.extras]
+tests = ["pysoundfile (>=0.9.0)", "pytest-pep8", "pytest-cov", "pytest"]
+docs = ["numpydoc", "sphinx-rtd-theme", "sphinxcontrib-napoleon", "sphinx (==1.2.3)"]
+
+[[package]]
+name = "youtube-dl"
+version = "2021.12.17"
+description = "YouTube video downloader"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = ">=3.9,<3.12"
+content-hash = "8e46e9f6d6263166fc927129f0cca077f3f98d52f08aaae8da59f7a6206a4104"
+
+[metadata.files]
+numpy = []
+progressbar2 = []
+python-utils = []
+scipy = []
+sox = []
+youtube-dl = []

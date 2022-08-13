@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "voice_actor_recog"
+version = "0.1.0"
+description = ""
+authors = ["piruty <8793641+piruty@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+scipy = "^1.9.0"
+progressbar2 = "^4.0.0"
+sox = "^1.4.1"
+
+[tool.poetry.dev-dependencies]
+youtube_dl = "^2021.12.17"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -11,83 +11,10 @@ from torch.nn.functional import one_hot
 import csv
 
 from NN import Network
+from DatasetLoader import make_data_set
 
 
-def make_data_set(file_path):
-    train_data = []
-    train_labels = []
-    test_data = []
-    test_labels = []
-
-    labels = []
-
-    with open('./files/data.txt', 'r') as f:
-        reader = csv.reader(f)
-        for line in reader:
-            data = [float(l) for l in line[:-1]]
-            label = line[-1]
-
-            if label not in labels:
-                labels.append(label)
-
-            if random.randint(0, 9) > 6:
-                train_data.append(data)
-                train_labels.append(labels.index(label))
-            else:
-                test_data.append(data)
-                test_labels.append(labels.index(label))
-    
-    return train_data, train_labels, test_data, test_labels, labels
-
-
-
-
-    # max_label = 0
-    # X, labels = [], []
-    # for line in lines:
-    #     if not line:
-    #         continue
-    #     line = line.split(' ')
-    #     datas = line[:-1]
-    #     x = []
-    #     for data in datas:
-    #         x.append(float(data))
-    #     X.append(x)
-
-    #     label = int(line[-1])
-    #     labels.append(label)
-    #     if max_label < label:
-    #         max_label = label
-
-    # data_set = SupervisedDataSet(13, max_label + 1)
-    # for data, label in zip(X, labels):
-    #     label_data = np.zeros(max_label + 1).astype(np.int32)
-    #     label_data[int(label)] = 1
-    #     data_set.addSample(data, label_data)
-
-    # return data_set
-
-
-# print 'read train dataset'
-# train_data_set = make_data_set('doc/train.txt')
-
-# print 'read test dataset'
-# test_data_set = make_data_set('doc/test.txt')
-print('load dataset')
-train_x, train_y, test_x, test_y, classes = make_data_set('./files/data.txt')
-
-print('convert data to tensor')
-tensor_train_x = torch.Tensor(train_x)
-# tensor_train_y = torch.Tensor(train_y)
-tensor_train_y = one_hot(torch.tensor(train_y), num_classes=len(classes))
-train_set = TensorDataset(tensor_train_x, tensor_train_y)
-train_loader = DataLoader(train_set, batch_size=10, shuffle=True, num_workers=0)
-
-tensor_test_x = torch.Tensor(test_x)
-# tensor_test_y = torch.Tensor(test_y)
-tensor_test_y = one_hot(torch.tensor(test_y), num_classes=len(classes))
-test_set = TensorDataset(tensor_test_x, tensor_test_y)
-test_loader = DataLoader(test_set, batch_size=10, shuffle=True, num_workers=0)
+train_loader, test_loader, classes = make_data_set('./files/data.txt')
 
 print('start train')
 model = Network()

@@ -6,3 +6,4 @@ voice/*
 *.wav
 *.mp4
 .ipynb_checkpoints/
+files/*

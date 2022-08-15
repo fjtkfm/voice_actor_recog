@@ -1,26 +1,22 @@
-from pybrain.tools.shortcuts import buildNetwork
-from pybrain.supervised import BackpropTrainer
-from pybrain.tools.xml import NetworkWriter
+import torch
+from torch import nn
+import torch.nn.functional as F
+
 
 from progressbar import ProgressBar
 import time
 
+activation = torch.nn.Tanh()
 
-class NN:
-    def __init__(self, n_input, n_hidden, n_output):
-        self.network = buildNetwork(n_input, n_hidden, n_output)
+class Network(nn.Module):
+    def __init__(self):
+        super(Network, self).__init__()
+        self.fc1 = nn.Linear(20, 30)
+        self.fc2 = nn.Linear(30, 10)
+        self.fc3 = nn.Linear(10, 2)
 
-    def train(self, train_data_set, test_data_set, epoch=100):
-        trainer = BackpropTrainer(self.network, train_data_set)
-
-        progress_bar = ProgressBar(epoch)
-
-        for i in range(epoch):
-            progress_bar.update(i+1)
-            time.sleep(0.01)
-            trainer.train()
-
-        return trainer.testOnData(test_data_set, verbose=True)
-
-    def save(self, file_path):
-        NetworkWriter.writeToFile(self.network, file_path)
+    def forward(self, input):
+        x = F.relu(self.fc1(input))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x

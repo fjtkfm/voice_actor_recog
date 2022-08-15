@@ -1,4 +1,5 @@
 from pathlib import Path
+import numpy as np
 import csv
 
 # from progressbar import ProgressBar
@@ -13,15 +14,9 @@ labels = []
 for file_path in file_pathes:
     mfcc = make_mfcc_data.convert_to_mfcc(str(file_path))
     for m in mfcc:
-        data.append(m)
-        labels.append(file_path.stem)
+        data.append(np.append(m, file_path.stem))
 
-with open('data.txt', 'w') as data_f:
+with open('./files/data.txt', 'w') as data_f:
     writer = csv.writer(data_f)
     for d in data:
         writer.writerow(d)
-
-with open('labels.txt', 'w') as label_f:
-    writer = csv.writer(label_f)
-    for l in labels:
-        writer.writerow([l])

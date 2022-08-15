@@ -1,58 +1,27 @@
-import subprocess
-import time
+from pathlib import Path
+import csv
 
-from progressbar import ProgressBar
+# from progressbar import ProgressBar
 
 import make_mfcc_data
 
 
-def cmd(cmd):
-    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p.communicate()
-    return stdout.rstrip()
+file_pathes = Path('./voice/remove_silence/').glob('**/*.wav')
+data = []
+labels = []
 
+for file_path in file_pathes:
+    mfcc = make_mfcc_data.convert_to_mfcc(str(file_path))
+    for m in mfcc:
+        data.append(m)
+        labels.append(file_path.stem)
 
-dirs = cmd("ls voice")
-labels = dirs.splitlines()
+with open('data.txt', 'w') as data_f:
+    writer = csv.writer(data_f)
+    for d in data:
+        writer.writerow(d)
 
-if 'doc' not in labels:
-    cmd("mkdir doc")
-
-train = open('doc/train.txt', 'w')
-test = open('doc/test.txt', 'w')
-labels_txt = open('doc/labels.txt', 'w')
-
-progress_bar = ProgressBar(len(labels))
-count = 0
-for class_no, label in enumerate(labels):
-
-    progress_bar.update(class_no+1)
-    time.sleep(0.01)
-
-    work_dir = 'voice/' + label
-    voice_files = cmd('ls ' + work_dir + '/*.wav')
-    voices = voice_files.splitlines()
-
-    labels_txt.write(label + '\n')
-    start_count = count
-    length = len(voices)
-    for voice in voices:
-        ceps = make_mfcc_data.convert_to_mfcc(voice)
-        if ceps is None:
-            continue
-
-        if count - start_count < length * 0.75:
-            for data in ceps[0]:
-                train.write('%s ' % data)
-            train.write('%s' % class_no)
-            train.write('\n')
-        else:
-            for data in ceps[0]:
-                test.write('%s ' % data)
-            test.write('%s' % class_no)
-            test.write('\n')
-        count += 1
-
-train.close()
-test.close()
-labels_txt.close()
+with open('labels.txt', 'w') as label_f:
+    writer = csv.writer(label_f)
+    for l in labels:
+        writer.writerow([l])

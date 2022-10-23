@@ -2,8 +2,6 @@ from pathlib import Path
 import numpy as np
 import csv
 
-# from progressbar import ProgressBar
-
 import make_mfcc_data
 
 

@@ -1,5 +1,0 @@
-numpy==1.9.2
-progressbar2==2.7.3
-PyBrain==0.3
-scikits.talkbox==0.2.5
-scipy==0.16.0

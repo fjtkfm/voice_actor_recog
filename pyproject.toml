@@ -9,6 +9,9 @@ python = ">=3.9,<3.12"
 scipy = "^1.9.0"
 progressbar2 = "^4.0.0"
 sox = "^1.4.1"
+torch = "^1.12.1"
+torchvision = "^0.13.1"
+matplotlib = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
 youtube_dl = "^2021.12.17"

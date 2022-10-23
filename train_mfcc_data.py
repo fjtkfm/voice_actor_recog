@@ -6,8 +6,8 @@ from torch.optim import SGD
 from torch.autograd import Variable
 
 
-from NN import Network
-from DatasetLoader import make_data_set
+from models.NN import Network
+from models.DatasetLoader import make_data_set
 
 
 train_loader, test_loader, classes = make_data_set('./files/data.txt')
@@ -31,7 +31,7 @@ def testAccurary():
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             accuracy += (predicted == labels).sum().item()
-    
+
     accuracy = (100 * accuracy / total)
     return accuracy
 
@@ -63,7 +63,7 @@ def train(num_epochs):
             loss.backward()
             # adjust parameters based on the calculated gradients
             optimizer.step()
-        
+
 # we want to save the model if the accuracy is the best
 model.save()
 
@@ -80,24 +80,24 @@ def imageshow(img):
 
 # Function to test the model with a batch of images and show the labels predictions
 def testBatch():
-    # get batch of images from the test DataLoader  
+    # get batch of images from the test DataLoader
     images, labels = next(iter(test_loader))
 
     # show all images as one image grid
     # imageshow(torchvision.utils.make_grid(images))
-   
-    # Show the real labels on the screen 
-    print('Real labels: ', ' '.join('%5s' % classes[torch.argmax(labels[j])] 
+
+    # Show the real labels on the screen
+    print('Real labels: ', ' '.join('%5s' % classes[torch.argmax(labels[j])]
                                for j in range(10)))
-  
+
     # Let's see what if the model identifiers the  labels of those example
     outputs = model(images)
-    
+
     # We got the probability for every 10 labels. The highest (max) probability should be correct label
     _, predicted = torch.max(outputs, 1)
-    
+
     # Let's show the predicted labels on the screen to compare with the real ones
-    print('Predicted:   ', ' '.join('%5s' % classes[predicted[j]] 
+    print('Predicted:   ', ' '.join('%5s' % classes[predicted[j]]
                               for j in range(10)))
 
 # Let's build our model

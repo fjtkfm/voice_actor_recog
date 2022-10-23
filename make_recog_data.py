@@ -40,4 +40,3 @@ for class_no, label in enumerate(labels):
         recog.write('\n')
 
 recog.close()
-

@@ -20,7 +20,7 @@ do
     if [ "$file_name" = "$from" ]; then
         continue
     fi
-    
+ 
     name=`echo $file_name | cut -d "." -f 1`
     ffmpeg -i "$from"/"$file_name" -map 0:1 "$to"/"$name".wav
 done

@@ -1,14 +1,10 @@
-import random
 import numpy as np
 import torch
 import torchvision
 from torch import nn
 from torch.optim import SGD
 from torch.autograd import Variable
-from torch.utils.data import TensorDataset, DataLoader
-from torch.nn.functional import one_hot
 
-import csv
 
 from NN import Network
 from DatasetLoader import make_data_set
@@ -21,9 +17,6 @@ model = Network()
 
 loss_fn = nn.MSELoss()
 optimizer = SGD(model.parameters(), lr=0.01)
-
-def save_model():
-    torch.save(model.state_dict(), './files/model.pth')
 
 def testAccurary():
     model.eval()
@@ -72,7 +65,7 @@ def train(num_epochs):
             optimizer.step()
         
 # we want to save the model if the accuracy is the best
-save_model()
+model.save()
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -91,12 +84,10 @@ def testBatch():
     images, labels = next(iter(test_loader))
 
     # show all images as one image grid
-    imageshow(torchvision.utils.make_grid(images))
+    # imageshow(torchvision.utils.make_grid(images))
    
     # Show the real labels on the screen 
-    print(classes)
-    print(labels)
-    print('Real labels: ', ' '.join('%5s' % classes[labels[j].index(1)] 
+    print('Real labels: ', ' '.join('%5s' % classes[torch.argmax(labels[j])] 
                                for j in range(10)))
   
     # Let's see what if the model identifiers the  labels of those example
@@ -106,7 +97,7 @@ def testBatch():
     _, predicted = torch.max(outputs, 1)
     
     # Let's show the predicted labels on the screen to compare with the real ones
-    print('Predicted: ', ' '.join('%5s' % classes[predicted[j]] 
+    print('Predicted:   ', ' '.join('%5s' % classes[predicted[j]] 
                               for j in range(10)))
 
 # Let's build our model
@@ -122,4 +113,4 @@ path = "./files/model.pth"
 model.load_state_dict(torch.load(path))
 
 # Test with batch of images
-# testBatch()
+testBatch()

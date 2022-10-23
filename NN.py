@@ -3,9 +3,6 @@ from torch import nn
 import torch.nn.functional as F
 
 
-from progressbar import ProgressBar
-import time
-
 activation = torch.nn.Tanh()
 
 class Network(nn.Module):
@@ -20,3 +17,6 @@ class Network(nn.Module):
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
+
+    def save(self):
+        torch.save(self.state_dict(), './files/model.pth')
